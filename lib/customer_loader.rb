@@ -1,0 +1,2 @@
+class CustomerLoader
+end

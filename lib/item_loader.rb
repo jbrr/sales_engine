@@ -1,0 +1,2 @@
+class ItemLoader
+end
