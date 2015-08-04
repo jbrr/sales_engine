@@ -1,0 +1,2 @@
+class InvoiceItemLoader
+end
