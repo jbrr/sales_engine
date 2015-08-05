@@ -4,7 +4,7 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_it_can_instantiate_new_depositories
-    engine = SalesEngine.new
+    engine = SalesEngine.new("./fixtures")
     engine.startup
 
     assert engine.customer_repository.kind_of?(CustomerRepository)

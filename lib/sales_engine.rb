@@ -8,10 +8,11 @@ require_relative 'transaction_repository'
 class SalesEngine
   attr_reader :customer_repository, :invoice_item_repository,
               :invoice_repository, :item_repository,
-              :merchant_repository, :transaction_repository
+              :merchant_repository, :transaction_repository,
+              :filepath
 
-  def inititalize
-
+  def initialize(filepath)
+    @filepath = filepath
   end
   def startup
     @customer_repository
@@ -23,27 +24,27 @@ class SalesEngine
   end
 
   def customer_repository
-    @customer_repository = CustomerRepository.new
+    @customer_repository = CustomerRepository.new("#{filepath}/customers.csv")
   end
 
   def invoice_item_repository
-    @invoice_item_repository = InvoiceItemRepository.new
+    @invoice_item_repository = InvoiceItemRepository.new("#{filepath}/invoice_item.csv")
   end
 
   def invoice_repository
-    @invoice_repository = InvoiceRepository.new
+    @invoice_repository = InvoiceRepository.new("#{filepath}/invoices.csv")
   end
-  
+
   def item_repository
-    @item_repository = ItemRepository.new
+    @item_repository = ItemRepository.new("#{filepath}/items.csv")
   end
 
   def merchant_repository
-    @merchant_repository = MerchantRepository.new
+    @merchant_repository = MerchantRepository.new("#{filepath}/merchants.csv")
   end
 
   def transaction_repository
-    @transaction_repository = TransactionRepository.new
+    @transaction_repository = TransactionRepository.new("#{filepath}/transactions.csv")
   end
 
 end

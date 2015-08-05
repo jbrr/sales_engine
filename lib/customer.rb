@@ -4,7 +4,7 @@ class Customer
 
   attr_reader :customers
 
-  def inititalize
+  def initialize
     @customers = []
   end
 
