@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/sales_engine'
+require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
   def test_it_can_instantiate_new_depositories
