@@ -31,48 +31,48 @@ class CustomerRepositoryTest < Minitest::Test
   def test_it_can_find_a_customer_by_id
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_id(1)
-    assert customer.first_name == "Joey"
+    assert_equal customer.first_name, "Joey"
   end
 
   def test_it_can_find_a_different_customer_by_id
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_id(3)
-    assert customer.first_name == "Mariah"
+    assert_equal customer.first_name, "Mariah"
   end
 
   def test_it_can_find_a_customer_by_first_name
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_first_name("Joey")
-    assert customer.id == 1
+    assert_equal customer.id, 1
   end
 
   def test_it_can_find_a_different_customer_by_first_name
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_first_name("Mariah")
-    assert customer.id == 3
+    assert_equal customer.id, 3
   end
 
   def test_it_can_find_a_customer_by_first_name_regardless_of_case
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_first_name("maRiAh")
-    assert customer.id == 3
+    assert_equal customer.id, 3
   end
 
   def test_it_can_find_a_customer_by_last_name
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_last_name("Ondricka")
-    assert customer.id == 1
+    assert_equal customer.id, 1
   end
 
   def test_it_can_find_a_different_customer_by_last_name
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_last_name("Toy")
-    assert customer.id == 3
+    assert_equal customer.id, 3
   end
 
   def test_it_can_find_a_customer_by_last_name_regardless_of_case
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     customer = customer_repo.find_by_last_name("tOY")
-    assert customer.id == 3
+    assert_equal customer.id, 3
   end
 end
