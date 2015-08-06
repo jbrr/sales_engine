@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/invoice'
+require_relative '../lib/invoice'
 
 class InvoiceTest < Minitest::Test
-end
+
+  d
