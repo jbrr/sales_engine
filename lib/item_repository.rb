@@ -5,9 +5,10 @@ class ItemRepository
   attr_reader :filepath
   attr_accessor :items
 
-  def initialize(filepath)
+  def initialize(filepath, sales_engine)
     @filepath = filepath
     @items = []
+    @sales_engine = sales_engine
     load_data(filepath)
   end
 

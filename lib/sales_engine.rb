@@ -15,36 +15,36 @@ class SalesEngine
     @filepath = filepath
   end
   def startup
-  customer_repository_load
-    @invoice_item_repository
-    @invoice_repository
-    @item_repository
-    @merchant_repository
-    @transaction_repository
+    customer_repository_load
+    invoice_item_repository_load
+    invoice_repository_load
+    item_repository_load
+    merchant_repository_load
+    transaction_repository_load
   end
 
   def customer_repository_load
-    @customer_repository = CustomerRepository.new("#{filepath}/customers.csv")
+    @customer_repository = CustomerRepository.new("#{filepath}/customers.csv", self)
   end
 
-  def invoice_item_repository
-    @invoice_item_repository = InvoiceItemRepository.new("#{filepath}/invoice_item.csv")
+  def invoice_item_repository_load
+    @invoice_item_repository = InvoiceItemRepository.new("#{filepath}/invoice_item.csv", self)
   end
 
-  def invoice_repository
-    @invoice_repository = InvoiceRepository.new("#{filepath}/invoices.csv")
+  def invoice_repository_load
+    @invoice_repository = InvoiceRepository.new("#{filepath}/invoices.csv", self)
   end
 
-  def item_repository
-    @item_repository = ItemRepository.new("#{filepath}/items.csv")
+  def item_repository_load
+    @item_repository = ItemRepository.new("#{filepath}/items.csv", self)
   end
 
-  def merchant_repository
-    @merchant_repository = MerchantRepository.new("#{filepath}/merchants.csv")
+  def merchant_repository_load
+    @merchant_repository = MerchantRepository.new("#{filepath}/merchants.csv", self)
   end
 
-  def transaction_repository
-    @transaction_repository = TransactionRepository.new("#{filepath}/transactions.csv")
+  def transaction_repository_load
+    @transaction_repository = TransactionRepository.new("#{filepath}/transactions.csv", self)
   end
 
 end

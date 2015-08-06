@@ -7,9 +7,10 @@ class InvoiceRepository
   attr_reader :filepath
   attr_accessor :invoice
 
-  def initialize(filepath)
+  def initialize(filepath, sales_engine)
     @filepath = filepath
     @invoice = []
+    @sales_engine = sales_engine
     load_data(filepath)
   end
 
