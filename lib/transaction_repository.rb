@@ -5,9 +5,10 @@ class TransactionRepository
   attr_reader :filepath
   attr_accessor :transactions
 
-  def initialize(filepath)
+  def initialize(filepath, sales_engine)
     @filepath = filepath
     @transactions = []
+    @sales_engine = sales_engine
     load_data(filepath)
   end
 
