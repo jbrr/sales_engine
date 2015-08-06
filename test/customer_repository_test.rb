@@ -20,7 +20,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_has_10_elements
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
-    assert_equal customer_repo.customers.size, 10
+    assert_equal customer_repo.customers.size, 2
   end
 
   def test_it_can_return_all_instances_of_customers

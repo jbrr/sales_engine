@@ -20,7 +20,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_has_10_elements
     item_repo = ItemRepository.new("#{@path}/items.csv")
-    assert_equal item_repo.items.size, 10
+    assert_equal item_repo.items.size, 17
   end
 
   def test_it_can_return_all_instances_of_items
