@@ -13,9 +13,8 @@ class CustomerRepository
   end
 
   def load_data(filepath)
-    customer_csv = CustomerLoader.open_file(filepath)
-    customer_csv.each do |row|
-      @customers << Customer.new(row[:id])
+   CustomerLoader.open_file(filepath).each do |row|
+      @customers << Customer.new(row, self)
     end
   end
 
@@ -25,5 +24,23 @@ class CustomerRepository
 
   def random
     @customers.sample
+  end
+
+  def find_by_id(id)
+    customers.find do |customer|
+      customer.id == id
+    end
+  end
+
+  def find_by_first_name(first_name)
+    customers.find do |customer|
+      customer.first_name.downcase == first_name.downcase
+    end
+  end
+
+  def find_by_last_name(last_name)
+    customers.find do |customer|
+      customer.last_name.downcase == last_name.downcase
+    end
   end
 end
