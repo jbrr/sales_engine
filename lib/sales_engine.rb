@@ -15,7 +15,7 @@ class SalesEngine
     @filepath = filepath
   end
   def startup
-    @customer_repository
+  customer_repository_load
     @invoice_item_repository
     @invoice_repository
     @item_repository
@@ -23,7 +23,7 @@ class SalesEngine
     @transaction_repository
   end
 
-  def customer_repository
+  def customer_repository_load
     @customer_repository = CustomerRepository.new("#{filepath}/customers.csv")
   end
 

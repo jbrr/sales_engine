@@ -12,9 +12,9 @@ class MerchantRepository
   end
 
   def load_data(filepath)
-    merchants_csv = MerchantLoader.open_file(filepath)
-    merchants_csv.each do |row|
-      @merchants << Merchant.new(row[:id])
+
+    MerchantLoader.open_file(filepath).each do |row|
+      @merchants << Merchant.new(row, self)
     end
   end
 
@@ -24,5 +24,11 @@ class MerchantRepository
 
   def random
     @merchants.sample
+  end
+
+  def find_by_id(id)
+    merchants.find do |merchant|
+      merchant.id == id
+    end
   end
 end
