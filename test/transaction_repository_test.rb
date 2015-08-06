@@ -20,7 +20,7 @@ class TransactionRepositoryTest < Minitest::Test
 
   def test_it_has_10_elements
     transaction_repo = TransactionRepository.new("#{@path}/transactions.csv")
-    assert_equal transaction_repo.transactions.size, 10
+    assert_equal transaction_repo.transactions.size, 3
   end
 
   def test_it_can_return_all_instances_of_transactions

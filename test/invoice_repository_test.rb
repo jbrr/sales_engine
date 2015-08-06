@@ -9,22 +9,22 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_stores_file_path
-    invoice_repo = InvoiceRepository.new("#{@path}/invoice.csv")
-    assert_equal invoice_repo.filepath, "#{@path}/invoice.csv"
+    invoice_repo = InvoiceRepository.new("#{@path}/invoices.csv")
+    assert_equal invoice_repo.filepath, "#{@path}/invoices.csv"
   end
 
   def test_invoice_array_is_populated
-    invoice_repo = InvoiceRepository.new("#{@path}/invoice.csv")
+    invoice_repo = InvoiceRepository.new("#{@path}/invoices.csv")
     refute invoice_repo.invoice.nil?
   end
 
   def test_it_has_10_elements
-    invoice_repo = InvoiceRepository.new("#{@path}/invoice.csv")
-    assert_equal invoice_repo.invoice.size, 10
+    invoice_repo = InvoiceRepository.new("#{@path}/invoices.csv")
+    assert_equal invoice_repo.invoice.size, 3
   end
 
   def test_it_can_return_all_instances_of_invoice
-    invoice_repo = InvoiceRepository.new("#{@path}/invoice.csv")
+    invoice_repo = InvoiceRepository.new("#{@path}/invoices.csv")
     assert_equal invoice_repo.invoice, invoice_repo.all
   end
 end

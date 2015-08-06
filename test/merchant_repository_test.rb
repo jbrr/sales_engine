@@ -20,7 +20,7 @@ class MerchantRepositoryTest < Minitest::Test
 
   def test_it_has_10_elements
     merchant_repo = MerchantRepository.new("#{@path}/merchants.csv")
-    assert_equal merchant_repo.merchants.size, 10
+    assert_equal merchant_repo.merchants.size, 3
   end
 
   def test_it_can_return_all_instances_of_merchants
