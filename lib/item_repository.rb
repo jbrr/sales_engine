@@ -19,28 +19,94 @@ class ItemRepository
   end
 
   def all
-    @items
+    items
   end
 
   def random
-    @items.sample
+    items.sample
   end
 
-  [:id, :name, :description, :unit_price, :merchant_id, :created_at,
-   :updated_at].each do |attribute|
-     define_method "find_by_#{attribute}" do |arg|
-       items.find do |item|
-         item.send(attribute).to_s.downcase == arg.to_s.downcase
-       end
-     end
-   end
-
-   [:id, :name, :description, :unit_price, :merchant_id, :created_at,
-    :updated_at].each do |attribute|
-      define_method "find_all_by_#{attribute}" do |arg|
-        items.find_all do |item|
-          item.send(attribute).to_s.downcase == arg.to_s.downcase
-        end
-      end
+  def find_by_id(id)
+    items.find do |item|
+      item.id == id
     end
+  end
+
+  def find_by_name(name)
+    items.find do |item|
+      item.name.downcase == name.downcase
+    end
+  end
+
+  def find_by_description(description)
+    items.find do |item|
+      item.description.downcase == description.downcase
+    end
+  end
+
+  def find_by_unit_price(price)
+    items.find do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_by_merchant_id(merchant_id)
+    items.find do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_by_created_at(created_at)
+    items.find do |item|
+      item.created_at == created_at
+    end
+  end
+
+  def find_by_updated_at(updated_at)
+    items.find do |item|
+      item.updated_at == updated_at
+    end
+  end
+
+  def find_all_by_id(id)
+    items.find_all do |item|
+      item.id == id
+    end
+  end
+
+  def find_all_by_name(name)
+    items.find_all do |item|
+      item.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_description(description)
+    items.find_all do |item|
+      item.description.downcase == description.downcase
+    end
+  end
+
+  def find_all_by_unit_price(price)
+    items.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    items.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_created_at(created_at)
+    items.find_all do |item|
+      item.created_at == created_at
+    end
+  end
+
+  def find_all_by_updated_at(updated_at)
+    items.find_all do |item|
+      item.updated_at == updated_at
+    end
+  end
 end
