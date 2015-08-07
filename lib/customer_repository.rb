@@ -20,11 +20,11 @@ class CustomerRepository
   end
 
   def all
-    @customers
+    customers
   end
 
   def random
-    @customers.sample
+    customers.sample
   end
 
   def find_by_id(id)

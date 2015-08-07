@@ -13,17 +13,100 @@ class ItemRepository
   end
 
   def load_data(filepath)
-    items_csv = ItemLoader.open_file(filepath)
-    items_csv.each do |row|
-      @items << Item.new(row[:id])
+    ItemLoader.open_file(filepath).each do |row|
+      @items << Item.new(row, self)
     end
   end
 
   def all
-    @items
+    items
   end
 
   def random
-    @items.sample
+    items.sample
+  end
+
+  def find_by_id(id)
+    items.find do |item|
+      item.id == id
+    end
+  end
+
+  def find_by_name(name)
+    items.find do |item|
+      item.name.downcase == name.downcase
+    end
+  end
+
+  def find_by_description(description)
+    items.find do |item|
+      item.description.downcase == description.downcase
+    end
+  end
+
+  def find_by_unit_price(price)
+    items.find do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_by_merchant_id(merchant_id)
+    items.find do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_by_created_at(created_at)
+    items.find do |item|
+      item.created_at == created_at
+    end
+  end
+
+  def find_by_updated_at(updated_at)
+    items.find do |item|
+      item.updated_at == updated_at
+    end
+  end
+
+  def find_all_by_id(id)
+    items.find_all do |item|
+      item.id == id
+    end
+  end
+
+  def find_all_by_name(name)
+    items.find_all do |item|
+      item.name.downcase == name.downcase
+    end
+  end
+
+  def find_all_by_description(description)
+    items.find_all do |item|
+      item.description.downcase == description.downcase
+    end
+  end
+
+  def find_all_by_unit_price(price)
+    items.find_all do |item|
+      item.unit_price == price
+    end
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    items.find_all do |item|
+      item.merchant_id == merchant_id
+    end
+  end
+
+  def find_all_by_created_at(created_at)
+    items.find_all do |item|
+      item.created_at == created_at
+    end
+  end
+
+  def find_all_by_updated_at(updated_at)
+    items.find_all do |item|
+      item.updated_at == updated_at
+    end
   end
 end
