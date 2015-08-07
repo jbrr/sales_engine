@@ -10,19 +10,68 @@ class InvoiceRepositoryTest < Minitest::Test
     @invoice_repo = InvoiceRepository.new("./test/fixtures/invoices.csv", self)
   end
 
-  def test_it_stores_file_path
-    assert_equal invoice_repo.filepath, "./test/fixtures/invoices.csv"
-  end
+def test_it_can_find_an_invoice_by_id
+	invoice = invoice_repo.find_by_id(1)
+	assert_equal invoice.merchant_id, 26
+end
 
-  def test_invoice_array_is_populated
-    refute invoice_repo.invoice.nil?
-  end
+def test_it_can_find_an_invoice_by_customer_id
+	invoice = invoice_repo.find_by_customer_id(1)
+	assert_equal invoice.merchant_id, 26
+end
 
-  def test_it_has_10_elements
-    assert_equal invoice_repo.invoice.size, 3
-  end
+def test_it_can_find_an_invoice_by_merchant_id
+	invoice = invoice_repo.find_by_merchant_id(26)
+	assert_equal invoice.id, 1
+end
 
-  def test_it_can_return_all_instances_of_invoice
-    assert_equal invoice_repo.invoice, invoice_repo.all
-  end
+def test_it_can_find_an_invoice_by_status
+	invoice = invoice_repo.find_by_status("shipped")
+	assert_equal invoice.id, 1
+end
+
+def test_it_can_find_an_invoice_by_created_at_date
+	invoice = invoice_repo.find_by_created_at("2012-03-25 09:54:09 UTC")
+	assert_equal invoice.id, 1
+end
+
+def test_it_can_find_an_invoice_by_updated_at_date
+	invoice = invoice_repo.find_by_updated_at("2012-03-25 09:54:09 UTC")
+	assert_equal invoice.id, 1
+end
+
+def test_it_can_find_all_by_id
+	invoice = invoice_repo.find_all_by_id(1)
+	assert_equal invoice.size, 1
+end
+
+def test_it_can_find_all_by_customer_id
+	invoice = invoice_repo.find_all_by_customer_id(1)
+	assert_equal invoice.size, 2
+end
+
+def test_it_can_find_all_by_merchant_id
+	invoice = invoice_repo.find_all_by_merchant_id(26)
+	assert_equal invoice.size, 1
+end
+
+def test_it_can_find_all_by_status
+	invoice = invoice_repo.find_all_by_status("shipped")
+	assert_equal invoice.size, 3
+end
+
+def test_it_can_find_all_by_created_at_date
+	invoice = invoice_repo.find_all_by_created_at("2012-03-25 09:54:09 UTC")
+	assert_equal invoice.size, 1
+end
+
+def test_it_can_find_all_by_updated_at_date
+	invoice = invoice_repo.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
+	assert_equal invoice.size, 1
+end
+
+def test_it_will_return_an_empty_array_if_no_matches
+	invoice = invoice_repo.find_all_by_id(4898437)
+	assert_equal invoice.size, 0
+end
 end
