@@ -20,26 +20,70 @@ class CustomerRepository
   end
 
   def all
-    @customers
+    customers
   end
 
   def random
-    @customers.sample
+    customers.sample
   end
 
-  [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|
-    define_method "find_by_#{attribute}" do |arg|
-      customers.find do |customer|
-        customer.send(attribute).to_s.downcase == arg.to_s.downcase
-      end
+  def find_by_id(id)
+    customers.find do |customer|
+      customer.id == id
     end
   end
 
-  [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|
-    define_method "find_all_by_#{attribute}" do |arg|
-      customers.find_all do |customer|
-        customer.send(attribute).to_s.downcase == arg.to_s.downcase
-      end
+  def find_by_first_name(first_name)
+    customers.find do |customer|
+      customer.first_name.downcase == first_name.downcase
+    end
+  end
+
+  def find_by_last_name(last_name)
+    customers.find do |customer|
+      customer.last_name.downcase == last_name.downcase
+    end
+  end
+
+  def find_by_created_at(date)
+    customers.find do |customer|
+      customer.created_at == date
+    end
+  end
+
+  def find_by_updated_at(date)
+    customers.find do |customer|
+      customer.updated_at == date
+    end
+  end
+
+  def find_all_by_id(id)
+    customers.find_all do |customer|
+      customer.id == id
+    end
+  end
+
+  def find_all_by_first_name(first_name)
+    customers.find_all do |customer|
+      customer.first_name.downcase == first_name.downcase
+    end
+  end
+
+  def find_all_by_last_name(last_name)
+    customers.find_all do |customer|
+      customer.last_name.downcase == last_name.downcase
+    end
+  end
+
+  def find_all_by_created_at(date)
+    customers.find_all do |customer|
+      customer.created_at == date
+    end
+  end
+
+  def find_all_by_updated_at(date)
+    customers.find_all do |customer|
+      customer.updated_at == date
     end
   end
 end

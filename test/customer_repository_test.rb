@@ -109,4 +109,9 @@ class CustomerRepositoryTest < Minitest::Test
     customer_array = customer_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal customer_array.size, 1
   end
+
+  def test_it_will_return_an_empty_array_if_no_matches
+    customer_array = customer_repo.find_all_by_id(45893)
+    assert_equal customer_array.size, 0
+  end
 end
