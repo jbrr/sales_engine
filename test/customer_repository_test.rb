@@ -27,4 +27,5 @@ class CustomerRepositoryTest < Minitest::Test
     customer_repo = CustomerRepository.new("#{@path}/customers.csv")
     assert_equal customer_repo.customers, customer_repo.all
   end
+  
 end

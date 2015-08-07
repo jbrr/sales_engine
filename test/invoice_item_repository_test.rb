@@ -4,27 +4,86 @@ require_relative '../lib/invoice_item_repository'
 
 class InvoiceItemRepositoryTest < Minitest::Test
 
+  attr_reader :invoice_item_repo
+
   def setup
-    @path = "./test/fixtures"
+    @invoice_item_repo = InvoiceItemRepository.new("./test/fixtures/invoice_items.csv", self)
   end
 
+
   def test_it_stores_file_path
-    invoice_repo = InvoiceItemRepository.new("#{@path}/invoice_items.csv")
-    assert_equal invoice_repo.filepath, "#{@path}/invoice_items.csv"
+    assert_equal invoice_item_repo.filepath, "./test/fixtures/invoice_items.csv"
   end
 
   def test_invoice_item_array_is_populated
-    invoice_repo = InvoiceItemRepository.new("#{@path}/invoice_items.csv")
-    refute invoice_repo.invoice_item.nil?
+    refute invoice_item_repo.nil?
   end
 
-  def test_it_has_10_elements
-    invoice_repo = InvoiceItemRepository.new("#{@path}/invoice_items.csv")
-    assert_equal invoice_repo.invoice_item.size, 18
+  def test_it_has_correct_number_of_elements
+    assert_equal invoice_item_repo.invoice_items.size, 18
   end
 
   def test_it_can_return_all_instances_of_invoice_items
-    invoice_repo = InvoiceItemRepository.new("#{@path}/invoice_items.csv")
-    assert_equal invoice_repo.invoice_item, invoice_repo.all
+    assert_equal invoice_item_repo.invoice_items, invoice_item_repo.invoice_items
   end
+
+  def test_it_can_find_invoice_items_by_item_id
+    invoice_item = invoice_item_repo.find_by_item_id(539)
+    assert invoice_item.id, 1
+  end
+
+  def test_can_find_invoice_items_by_invoice_id
+    invoice_item = invoice_item_repo.find_by_invoice_id(1)
+    assert invoice_item.id, 1
+  end
+
+  def test_it_can_find_by_unit_price
+    invoice_item = invoice_item_repo.find_by_unit_price(13635)
+    assert invoice_item.id, 1
+  end
+
+  def test_it_can_find_by_created_at
+    invoice_item = invoice_item_repo.find_by_created_at('2012-03-27 14:54:09 UTC')
+    assert invoice_item.id, 1
+  end
+
+  def test_it_can_find_by_updated_at
+    invoice_item = invoice_item_repo.find_by_updated_at('2012-03-27 14:54:09 UTC')
+    assert invoice_item.id, 1
+  end
+
+  def test_it_can_find_by_quantity
+    invoice_item = invoice_item_repo.find_by_quantity(5)
+    assert invoice_item.id, 1
+  end
+
+  def test_it_can_find_all_invoice_items_by_item_id
+    invoice_item = invoice_item_repo.find_all_item_id(539)
+    assert_equal invoice_item.size, 1
+  end
+
+  def test_can_find_all_invoice_items_by_invoice_id
+    invoice_item = invoice_item_repo.find_all_invoice_id(1)
+    assert_equal invoice_item.size, 8
+  end
+
+
+  def test_it_can_find_all_by_created_at
+    invoice_item = invoice_item_repo.find_all_by_created_at('2012-03-27 14:54:09 UTC')
+    assert_equal invoice_item.size, 12
+  end
+
+  def test_it_can_find_all_by_updated_at
+    invoice_item = invoice_item_repo.find_all_by_updated_at('2012-03-27 14:54:09 UTC')
+    assert_equal invoice_item.size, 12
+  end
+
+  def test_it_can_find_all_by_quantity
+    invoice_item = invoice_item_repo.find_all_by_quantity(5)
+    assert_equal invoice_item.size, 2
+  end
+
+
+
+
 end

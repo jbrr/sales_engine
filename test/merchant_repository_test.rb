@@ -38,7 +38,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_can_find_case_sensitive_name
-    merchant = merchant_repo.find_by_name("OsiNski, PolLich and KoElpin")
+    merchant = merchant_repo.find_by_name("OsiNski, PoLlich and koelpin")
     assert_equal merchant.id, 8
   end
 
@@ -51,5 +51,16 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_array = merchant_repo.find_all_by_name("Osinski, Pollich and Koelpin")
     assert_equal merchant_array.size, 1
   end
+
+  def test_merchant_can_find_all_by_id
+    merchant_array = merchant_repo.find_all_by_name("Osinski, Pollich and Koelpin")
+    assert_equal merchant_array.size, 1
+  end
+
+  def test_merchant_can_find_all_by_created_at
+    merchant_array = merchant_repo.find_all_by_created_at("2012-03-27 14:53:59 UTC")
+    assert_equal merchant_array.size, 1
+  end
+
 
 end
