@@ -94,4 +94,9 @@ class TransactionRepositoryTest < Minitest::Test
     transactions = transaction_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal transactions.size, 2
   end
+
+  def test_it_will_return_an_empty_array_if_no_matches
+    transactions = transaction_repo.find_all_by_id(385974)
+    assert_equal transactions.size, 0
+  end
 end
