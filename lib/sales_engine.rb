@@ -24,27 +24,35 @@ class SalesEngine
   end
 
   def customer_repository_load
-    @customer_repository = CustomerRepository.new("#{filepath}/customers.csv", self)
+    @customer_repository ||= CustomerRepository.new("#{filepath}/customers.csv", self)
   end
 
   def invoice_item_repository_load
-    @invoice_item_repository = InvoiceItemRepository.new("#{filepath}/invoice_item.csv", self)
+    @invoice_item_repository ||= InvoiceItemRepository.new("#{filepath}/invoice_items.csv", self)
   end
 
   def invoice_repository_load
-    @invoice_repository = InvoiceRepository.new("#{filepath}/invoices.csv", self)
+    @invoice_repository ||= InvoiceRepository.new("#{filepath}/invoices.csv", self)
   end
 
   def item_repository_load
-    @item_repository = ItemRepository.new("#{filepath}/items.csv", self)
+    @item_repository ||= ItemRepository.new("#{filepath}/items.csv", self)
   end
 
   def merchant_repository_load
-    @merchant_repository = MerchantRepository.new("#{filepath}/merchants.csv", self)
+    @merchant_repository ||= MerchantRepository.new("#{filepath}/merchants.csv", self)
   end
 
   def transaction_repository_load
-    @transaction_repository = TransactionRepository.new("#{filepath}/transactions.csv", self)
+    @transaction_repository ||= TransactionRepository.new("#{filepath}/transactions.csv", self)
+  end
+
+  def find_items_by_merchant_id(id)
+    item_repository.find_by_merchant_id(id)
+  end
+
+  def find_invoices_by_merchant_id(id)
+    invoice_repository.find_by_merchant_id(id)
   end
 
 end

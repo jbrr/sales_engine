@@ -102,12 +102,3 @@ class InvoiceRepository
   end
 
 end
-
-#   [:id, :customer_id, :merchant_id,
-#   :status, :created_at, :updated_at].each do |attribute|
-#     define_method "find_by_#{attribute}" do |arg|
-#       invoice.find do |invoice|
-#         invoice.send(attribute) == arg
-#       end
-#     end
-#   end

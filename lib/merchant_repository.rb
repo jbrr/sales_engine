@@ -2,7 +2,7 @@ require_relative 'merchant'
 require_relative 'merchant_loader'
 
 class MerchantRepository
-  attr_reader :filepath
+  attr_reader :filepath, :sales_engine
   attr_accessor :merchants
 
   def initialize(filepath, sales_engine)
@@ -19,11 +19,11 @@ class MerchantRepository
   end
 
   def all
-    @merchants
+    merchants
   end
 
   def random
-    @merchants.sample
+    merchants.sample
   end
 
   def find_by_id(id)
@@ -68,8 +68,12 @@ class MerchantRepository
     end
   end
 
+  def find_items(id)
+    sales_engine.find_items_by_merchant_id(id)
+  end
 
-
-
+  def find_invoices(id)
+    sales_engine.find_invoices_by_merchant_id(id)
+  end
 
 end
