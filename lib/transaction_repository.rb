@@ -13,9 +13,8 @@ class TransactionRepository
   end
 
   def load_data(filepath)
-    transactions_csv = TransactionLoader.open_file(filepath)
-    transactions_csv.each do |row|
-      @transactions << Transaction.new(row[:id])
+    TransactionLoader.open_file(filepath).each do |row|
+        @transactions << Transaction.new(row, self)
     end
   end
 
@@ -25,5 +24,23 @@ class TransactionRepository
 
   def random
     @transactions.sample
+  end
+
+  [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date,
+   :result, :created_at, :updated_at].each do |attribute|
+    define_method "find_by_#{attribute}".to_sym do |arg|
+      transactions.find do |transaction|
+        transaction.send(attribute) == arg
+      end
+    end
+  end
+
+  [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date,
+   :result, :created_at, :updated_at].each do |attribute|
+    define_method "find_all_by_#{attribute}".to_sym do |arg|
+      transactions.find_all do |transaction|
+        transaction.send(attribute) == arg
+      end
+    end
   end
 end
