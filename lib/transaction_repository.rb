@@ -28,7 +28,7 @@ class TransactionRepository
 
   [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date,
    :result, :created_at, :updated_at].each do |attribute|
-    define_method "find_by_#{attribute}".to_sym do |arg|
+    define_method "find_by_#{attribute}" do |arg|
       transactions.find do |transaction|
         transaction.send(attribute) == arg
       end
@@ -37,7 +37,7 @@ class TransactionRepository
 
   [:id, :invoice_id, :credit_card_number, :credit_card_expiration_date,
    :result, :created_at, :updated_at].each do |attribute|
-    define_method "find_all_by_#{attribute}".to_sym do |arg|
+    define_method "find_all_by_#{attribute}" do |arg|
       transactions.find_all do |transaction|
         transaction.send(attribute) == arg
       end

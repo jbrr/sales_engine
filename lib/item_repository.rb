@@ -13,9 +13,8 @@ class ItemRepository
   end
 
   def load_data(filepath)
-    items_csv = ItemLoader.open_file(filepath)
-    items_csv.each do |row|
-      @items << Item.new(row[:id])
+    ItemLoader.open_file(filepath).each do |row|
+      @items << Item.new(row, self)
     end
   end
 
@@ -26,4 +25,22 @@ class ItemRepository
   def random
     @items.sample
   end
+
+  [:id, :name, :description, :unit_price, :merchant_id, :created_at,
+   :updated_at].each do |attribute|
+     define_method "find_by_#{attribute}" do |arg|
+       items.find do |item|
+         item.send(attribute).to_s.downcase == arg.to_s.downcase
+       end
+     end
+   end
+
+   [:id, :name, :description, :unit_price, :merchant_id, :created_at,
+    :updated_at].each do |attribute|
+      define_method "find_all_by_#{attribute}" do |arg|
+        items.find_all do |item|
+          item.send(attribute).to_s.downcase == arg.to_s.downcase
+        end
+      end
+    end
 end

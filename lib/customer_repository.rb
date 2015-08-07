@@ -28,7 +28,7 @@ class CustomerRepository
   end
 
   [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|
-    define_method "find_by_#{attribute}".to_sym do |arg|
+    define_method "find_by_#{attribute}" do |arg|
       customers.find do |customer|
         customer.send(attribute).to_s.downcase == arg.to_s.downcase
       end
@@ -36,7 +36,7 @@ class CustomerRepository
   end
 
   [:id, :first_name, :last_name, :created_at, :updated_at].each do |attribute|
-    define_method "find_all_by_#{attribute}".to_sym do |arg|
+    define_method "find_all_by_#{attribute}" do |arg|
       customers.find_all do |customer|
         customer.send(attribute).to_s.downcase == arg.to_s.downcase
       end
