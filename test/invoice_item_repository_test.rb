@@ -58,12 +58,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_invoice_items_by_item_id
-    invoice_item = invoice_item_repo.find_all_item_id(539)
+    invoice_item = invoice_item_repo.find_all_by_item_id(539)
     assert_equal invoice_item.size, 1
   end
 
   def test_can_find_all_invoice_items_by_invoice_id
-    invoice_item = invoice_item_repo.find_all_invoice_id(1)
+    invoice_item = invoice_item_repo.find_all_by_invoice_id(1)
     assert_equal invoice_item.size, 8
   end
 

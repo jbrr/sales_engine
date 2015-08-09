@@ -47,16 +47,27 @@ class SalesEngine
     @transaction_repository ||= TransactionRepository.new("#{filepath}/transactions.csv", self)
   end
 
-  def find_items_by_merchant_id(id)
+  def find_items_by_merchant(id)
     item_repository.find_all_by_merchant_id(id)
   end
 
-  def find_invoices_by_merchant_id(id)
+  def find_invoices_by_merchant(id)
     invoice_repository.find_all_by_merchant_id(id)
   end
 
-  def find_transactions_by_invoice_id(id)
+  def find_transactions_by_invoice(id)
     transaction_repository.find_all_by_invoice_id(id)
   end
 
+  def find_invoice_items_by_invoice(id)
+    invoice_item_repository.find_all_by_invoice_id(id)
+  end
+
+  def find_items_by_invoice(id)
+    invoice_item_repository.find_all_items_by_invoice_id(id)
+  end
+
+  def find_customer_by_invoice(customer_id)
+    customer_repository.find_by_id(customer_id)
+  end
 end

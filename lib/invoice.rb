@@ -1,7 +1,6 @@
 class Invoice
-
   attr_reader :id, :customer_id, :merchant_id,
-  :status, :created_at, :updated_at
+  :status, :created_at, :updated_at, :repository
 
   def initialize(row, repository)
     @id           = row[:id].to_i
@@ -14,6 +13,18 @@ class Invoice
   end
 
   def transactions
-    @repository.find_transactions(id)
+    repository.find_transactions(id)
+  end
+
+  def invoice_items
+    repository.find_invoice_items(id)
+  end
+
+  def items
+    repository.find_items(id)
+  end
+
+  def customer
+    repository.find_customer(customer_id)
   end
 end

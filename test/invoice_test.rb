@@ -35,8 +35,23 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice.updated_at, "2012-03-25 09:54:09 UTC"
   end
 
-  def test_it_can_find_all_transactions_by_invoice_id
+  def test_it_can_find_all_transactions_by_invoice
     result = invoice.transactions
     assert_equal result.size, 1
+  end
+
+  def test_it_can_find_all_invoice_items_by_invoice
+    result = invoice.invoice_items
+    assert_equal result.size, 8
+  end
+
+  def test_it_can_find_all_invoice_items_by_invoice
+    result = invoice.items
+    assert_equal result.size, 8
+  end
+
+  def test_it_can_find_a_customer_by_invoice
+    result = invoice.customer
+    assert_equal result.first_name, "Joey"
   end
 end
