@@ -18,7 +18,7 @@ class InvoiceTest < Minitest::Test
       :status => "shipped",
       :created_at => "2012-03-25 09:54:09 UTC",
       :updated_at => "2012-03-25 09:54:09 UTC",
-    },
+      },
       repository)
   end
 
@@ -53,5 +53,10 @@ class InvoiceTest < Minitest::Test
   def test_it_can_find_a_customer_by_invoice
     result = invoice.customer
     assert_equal result.first_name, "Joey"
+  end
+
+  def test_it_can_find_a_merchant_by_invoice
+    result = invoice.merchant
+    assert_equal result.name, "Balistreri, Schaefer and Kshlerin"
   end
 end

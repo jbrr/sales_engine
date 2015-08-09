@@ -2,7 +2,7 @@ require_relative 'item'
 require_relative 'item_loader'
 
 class ItemRepository
-  attr_reader :filepath
+  attr_reader :filepath, :sales_engine
   attr_accessor :items
 
   def initialize(filepath, sales_engine)
@@ -108,5 +108,15 @@ class ItemRepository
     items.find_all do |item|
       item.updated_at == updated_at
     end
+  end
+
+  def find_invoice_items(id)
+    sales_engine.find_invoice_items_by_item(id)
+
+  end
+
+  def find_merchant(merchant_id)
+    sales_engine.find_merchant_by_item(merchant_id)
+
   end
 end

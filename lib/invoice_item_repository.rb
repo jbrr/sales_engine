@@ -4,7 +4,7 @@ require 'pry'
 
 class InvoiceItemRepository
 
-  attr_reader :filepath
+  attr_reader :filepath, :sales_engine
   attr_accessor :invoice_items
 
   def initialize(filepath, sales_engine)
@@ -101,6 +101,14 @@ class InvoiceItemRepository
         item.item_id
       end
     end
+  end
+
+  def find_invoice(invoice_id)
+    sales_engine.find_invoice_by_invoice_item(invoice_id)
+  end
+
+  def find_item(item_id)
+    sales_engine.find_item_by_invoice_item(item_id)
   end
 
 end
