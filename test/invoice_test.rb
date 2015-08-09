@@ -1,17 +1,42 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/invoice'
+require_relative '../lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
 
-  attr_reader :invoice
+  attr_reader :invoice, :repository
 
   def setup
-    @invoice = Invoice.new("./test/fixtures/invoices.csv", self)
+    sales_engine = SalesEngine.new("./test/fixtures")
+    sales_engine.startup
+    @repository = sales_engine.invoice_repository
+    @invoice = Invoice.new({
+      :id => 1,
+      :customer_id => 1,
+      :merchant_id => 26,
+      :status => "shipped",
+      :created_at => "2012-03-25 09:54:09 UTC",
+      :updated_at => "2012-03-25 09:54:09 UTC",
+    },
+      repository)
   end
 
-  def test_it_stores_file_path
-    assert_equal invoice.filepath, "./test/fixtures/invoice.csv"
+  def test_an_invoice_instance_exists
+    assert invoice
   end
 
+  def test_an_invoice_has_attributes
+    assert_equal invoice.id, 1
+    assert_equal invoice.customer_id, 1
+    assert_equal invoice.merchant_id, 26
+    assert_equal invoice.status, "shipped"
+    assert_equal invoice.created_at, "2012-03-25 09:54:09 UTC"
+    assert_equal invoice.updated_at, "2012-03-25 09:54:09 UTC"
+  end
+
+  def test_it_can_find_all_transactions_by_invoice_id
+    result = invoice.transactions
+    assert_equal result.size, 1
+  end
 end
