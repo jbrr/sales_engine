@@ -18,4 +18,9 @@ attr_reader :id,
     @updated_at                  = row[:updated_at]
     @repository                  = repository
   end
+
+  def invoice
+    repository.find_invoice(invoice_id)
+
+  end
 end

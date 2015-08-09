@@ -4,7 +4,7 @@ require 'pry'
 
 class InvoiceRepository
 
-  attr_reader :filepath
+  attr_reader :filepath, :sales_engine
   attr_accessor :invoices
 
   def initialize(filepath, sales_engine)
@@ -101,13 +101,25 @@ class InvoiceRepository
     end
   end
 
-end
+  def find_transactions(id)
+    sales_engine.find_transactions_by_invoice(id)
+  end
 
-#   [:id, :customer_id, :merchant_id,
-#   :status, :created_at, :updated_at].each do |attribute|
-#     define_method "find_by_#{attribute}" do |arg|
-#       invoice.find do |invoice|
-#         invoice.send(attribute) == arg
-#       end
-#     end
-#   end
+  def find_invoice_items(id)
+    sales_engine.find_invoice_items_by_invoice(id)
+  end
+
+  def find_items(id)
+    sales_engine.find_items_by_invoice(id)
+  end
+
+  def find_customer(customer_id)
+    sales_engine.find_customer_by_invoice(customer_id)
+  end
+
+  def find_merchant(merchant_id)
+    sales_engine.find_merchant_by_invoice(merchant_id)
+  end
+
+  
+end

@@ -2,7 +2,7 @@ require_relative 'transaction'
 require_relative 'transaction_loader'
 
 class TransactionRepository
-  attr_reader :filepath
+  attr_reader :filepath, :sales_engine
   attr_accessor :transactions
 
   def initialize(filepath, sales_engine)
@@ -108,5 +108,10 @@ class TransactionRepository
     transactions.find_all do |transaction|
       transaction.updated_at == updated_at
     end
+  end
+
+  def find_invoice(invoice_id)
+    sales_engine.find_invoice_by_transaction(invoice_id)
+
   end
 end

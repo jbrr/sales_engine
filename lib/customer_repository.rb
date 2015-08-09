@@ -3,7 +3,7 @@ require_relative 'customer_loader'
 require 'pry'
 
 class CustomerRepository
-  attr_reader :filepath
+  attr_reader :filepath, :sales_engine
   attr_accessor :customers
 
   def initialize(filepath, sales_engine)
@@ -85,5 +85,9 @@ class CustomerRepository
     customers.find_all do |customer|
       customer.updated_at == date
     end
+  end
+
+  def find_invoices(id)
+    sales_engine.find_invoices_by_customer(id)
   end
 end
