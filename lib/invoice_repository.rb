@@ -1,6 +1,5 @@
 require_relative 'invoice'
 require_relative 'invoice_loader'
-require 'pry'
 
 class InvoiceRepository
 

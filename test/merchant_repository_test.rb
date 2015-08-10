@@ -61,6 +61,4 @@ class MerchantRepositoryTest < Minitest::Test
     merchant_array = merchant_repo.find_all_by_created_at("2012-03-27 14:53:59 UTC")
     assert_equal merchant_array.size, 1
   end
-
-
 end

@@ -38,7 +38,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_unit_price
-    invoice_item = invoice_item_repo.find_by_unit_price(13635)
+    invoice_item = invoice_item_repo.find_by_unit_price(136.35)
     assert invoice_item.id, 1
   end
 

@@ -1,6 +1,5 @@
 require_relative 'customer'
 require_relative 'customer_loader'
-require 'pry'
 
 class CustomerRepository
   attr_reader :filepath, :sales_engine

@@ -21,6 +21,5 @@ attr_reader :id,
 
   def invoice
     repository.find_invoice(invoice_id)
-
   end
 end

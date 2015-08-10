@@ -37,6 +37,26 @@ class MerchantTest < Minitest::Test
 
   def test_it_can_find_all_invoices_by_merchant
     result = merchant.invoices
+    assert_equal result.size, 2
+  end
+
+  def test_it_can_find_successful_transactions_of_a_merchant
+    result = merchant.successful_transactions
     assert_equal result.size, 1
+  end
+
+  def test_it_can_find_invoices_of_successful_transactions
+    result = merchant.successful_invoices
+    assert_equal result.size, 1
+  end
+
+  def test_it_can_find_successful_invoice_items
+    result = merchant.successful_invoice_items
+    assert_equal result.size, 1
+  end
+
+  def test_it_can_find_revenue_by_merchant
+    result = merchant.revenue
+    assert_equal result, 901.84
   end
 end
