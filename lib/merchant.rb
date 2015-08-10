@@ -48,10 +48,8 @@ class Merchant
   end
 
   def revenue(date = nil)
-    result = 0
-    successful_invoice_items.each do |invoice_item|
-      result = (invoice_item.quantity * invoice_item.unit_price) + result
+    successful_invoice_items.inject(0) do |result, invoice_item|
+      invoice_item.quantity * invoice_item.unit_price + result
     end
-    result
   end
 end
