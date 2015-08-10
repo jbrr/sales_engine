@@ -52,11 +52,16 @@ class MerchantTest < Minitest::Test
 
   def test_it_can_find_successful_invoice_items
     result = merchant.successful_invoice_items
-    assert_equal result.size, 1
+    assert_equal result.size, 2
+  end
+
+  def test_it_returns_revenue_as_bigdecimal
+    result = merchant.revenue
+    assert_equal result.class, BigDecimal
   end
 
   def test_it_can_find_revenue_by_merchant
     result = merchant.revenue
-    assert_equal result, 901.84
+    assert_equal result, 3639.76
   end
 end

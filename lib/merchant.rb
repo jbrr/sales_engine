@@ -39,7 +39,6 @@ class Merchant
     end
   end
 
-  #returns an empty array within an empty array if no successful invoice items
   def successful_invoice_items
     result = []
     successful_invoices.each do |invoice|
@@ -51,7 +50,7 @@ class Merchant
   def revenue(date = nil)
     result = 0
     successful_invoice_items.each do |invoice_item|
-      result = invoice_item.quantity * invoice_item.unit_price
+      result = (invoice_item.quantity * invoice_item.unit_price) + result
     end
     result
   end
