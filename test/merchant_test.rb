@@ -43,6 +43,7 @@ class MerchantTest < Minitest::Test
   def test_it_can_find_successful_transactions_of_a_merchant
     result = merchant.successful_transactions
     assert_equal result.size, 1
+    assert_equal result[0].result, "success"
   end
 
   def test_it_can_find_invoices_of_successful_transactions
@@ -55,6 +56,13 @@ class MerchantTest < Minitest::Test
     assert_equal result.size, 2
   end
 
+  def test_it_can_find_successful_invoice_items_by_date
+    result = merchant.successful_invoice_items_by_date("2012-03-27")
+    other_result = merchant.successful_invoice_items_by_date("2015-08-10")
+    assert_equal result.size, 2
+    assert_equal other_result.size, 0
+  end
+
   def test_it_returns_revenue_as_bigdecimal
     result = merchant.revenue
     assert_equal result.class, BigDecimal
@@ -63,5 +71,12 @@ class MerchantTest < Minitest::Test
   def test_it_can_find_revenue_by_merchant
     result = merchant.revenue
     assert_equal result, 3639.76
+  end
+
+  def test_it_can_find_revenue_by_merchant_per_date
+    result = merchant.revenue("2012-03-27")
+    other_result = merchant.revenue("2015-08-10")
+    assert_equal result, 3639.76
+    assert_equal other_result, 0
   end
 end

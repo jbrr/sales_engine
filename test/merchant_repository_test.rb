@@ -1,13 +1,16 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
   attr_reader :merchant_repo
 
   def setup
-    @merchant_repo = MerchantRepository.new("./test/fixtures/merchants.csv", self)
+    sales_engine = SalesEngine.new("./test/fixtures")
+    sales_engine.startup
+    @merchant_repo = sales_engine.merchant_repository
   end
 
   def test_it_stores_file_path
@@ -60,5 +63,18 @@ class MerchantRepositoryTest < Minitest::Test
   def test_merchant_can_find_all_by_created_at
     merchant_array = merchant_repo.find_all_by_created_at("2012-03-27 14:53:59 UTC")
     assert_equal merchant_array.size, 1
+  end
+
+  def test_it_can_rank_merchants_by_revenue
+    result = merchant_repo.most_revenue(2)
+    assert_equal result.size, 2
+    assert_equal result[0].id, 26
+  end
+
+  def test_it_can_find_total_revenue_by_date
+    result = merchant_repo.revenue("2012-03-27")
+    other_result = merchant_repo.revenue("2015-08-10")
+    assert_equal result, 29996.66
+    assert_equal other_result, 0
   end
 end

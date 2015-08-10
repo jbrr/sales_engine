@@ -47,8 +47,19 @@ class Merchant
     result
   end
 
+  def successful_invoice_items_by_date(date)
+    successful_invoice_items.find_all do |invoice_item|
+      invoice_item.created_at[0..9] == date[0..9]
+    end
+  end
+
   def revenue(date = nil)
-    successful_invoice_items.inject(0) do |result, invoice_item|
+    if date
+      relevant_invoice_items = successful_invoice_items_by_date(date)
+    else
+      relevant_invoice_items = successful_invoice_items
+    end
+    relevant_invoice_items.inject(0) do |result, invoice_item|
       invoice_item.quantity * invoice_item.unit_price + result
     end
   end

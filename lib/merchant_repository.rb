@@ -75,4 +75,16 @@ class MerchantRepository
   def find_invoices(id)
     sales_engine.find_invoices_by_merchant(id)
   end
+
+  def most_revenue(num)
+    merchants.max_by(num) do |merchant|
+      merchant.revenue
+    end
+  end
+
+  def revenue(date)
+    merchants.inject(0) do |result, merchant|
+      merchant.revenue(date) + result
+    end
+  end
 end
