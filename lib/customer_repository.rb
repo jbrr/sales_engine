@@ -50,13 +50,13 @@ class CustomerRepository
 
   def find_by_created_at(date)
     customers.find do |customer|
-      customer.created_at == date
+      customer.created_at == DateTime.parse(date)
     end
   end
 
   def find_by_updated_at(date)
     customers.find do |customer|
-      customer.updated_at == date
+      customer.updated_at == DateTime.parse(date)
     end
   end
 
@@ -80,13 +80,13 @@ class CustomerRepository
 
   def find_all_by_created_at(date)
     customers.find_all do |customer|
-      customer.created_at == date
+      customer.created_at == DateTime.parse(date)
     end
   end
 
   def find_all_by_updated_at(date)
     customers.find_all do |customer|
-      customer.updated_at == date
+      customer.updated_at == DateTime.parse(date)
     end
   end
 

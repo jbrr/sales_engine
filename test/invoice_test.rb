@@ -45,7 +45,7 @@ class InvoiceTest < Minitest::Test
     assert_equal result.size, 8
   end
 
-  def test_it_can_find_all_invoice_items_by_invoice
+  def test_it_can_find_all_items_by_invoice
     result = invoice.items
     assert_equal result.size, 8
   end

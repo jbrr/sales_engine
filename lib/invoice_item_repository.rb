@@ -57,13 +57,13 @@ class InvoiceItemRepository
 
   def find_by_created_at(created_at)
     invoice_items.find do |time|
-      time.created_at == created_at
+      time.created_at == DateTime.parse(created_at)
     end
   end
 
   def find_by_updated_at(updated_at)
     invoice_items.find do |time|
-      time.updated_at == updated_at
+      time.updated_at == DateTime.parse(updated_at)
     end
   end
 
@@ -93,27 +93,19 @@ class InvoiceItemRepository
 
   def find_all_by_created_at(created_at)
     invoice_items.find_all do |time|
-      time.created_at == created_at
+      time.created_at == DateTime.parse(created_at)
     end
   end
 
   def find_all_by_updated_at(updated_at)
     invoice_items.find_all do |time|
-      time.updated_at == updated_at
+      time.updated_at == DateTime.parse(updated_at)
     end
   end
 
   def find_all_by_quantity(quantity)
     invoice_items.find_all do |number|
       number.quantity == quantity
-    end
-  end
-
-  def find_all_items_by_invoice_id(invoice_id)
-    invoice_items.find_all do |item|
-      if item.invoice_id == invoice_id
-        item.item_id
-      end
     end
   end
 

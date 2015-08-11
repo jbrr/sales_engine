@@ -62,13 +62,13 @@ class ItemRepository
 
   def find_by_created_at(created_at)
     items.find do |item|
-      item.created_at == created_at
+      item.created_at == DateTime.parse(created_at)
     end
   end
 
   def find_by_updated_at(updated_at)
     items.find do |item|
-      item.updated_at == updated_at
+      item.updated_at == DateTime.parse(updated_at)
     end
   end
 
@@ -104,13 +104,13 @@ class ItemRepository
 
   def find_all_by_created_at(created_at)
     items.find_all do |item|
-      item.created_at == created_at
+      item.created_at == DateTime.parse(created_at)
     end
   end
 
   def find_all_by_updated_at(updated_at)
     items.find_all do |item|
-      item.updated_at == updated_at
+      item.updated_at == DateTime.parse(updated_at)
     end
   end
 

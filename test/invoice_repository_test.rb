@@ -57,7 +57,7 @@ end
 
 def test_it_can_find_all_by_status
 	invoice = invoice_repo.find_all_by_status("shipped")
-	assert_equal invoice.size, 3
+	assert_equal invoice.size, 4
 end
 
 def test_it_can_find_all_by_created_at_date

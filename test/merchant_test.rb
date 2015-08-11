@@ -57,9 +57,9 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_find_successful_invoice_items_by_date
-    result = merchant.successful_invoice_items_by_date("2012-03-27")
-    other_result = merchant.successful_invoice_items_by_date("2015-08-10")
-    assert_equal result.size, 2
+    result = merchant.successful_invoice_items_by_date("2012-03-27 14:53:59 UTC")
+    other_result = merchant.successful_invoice_items_by_date("2015-08-10 14:55:00 UTC")
+    assert_equal result.size, 1
     assert_equal other_result.size, 0
   end
 

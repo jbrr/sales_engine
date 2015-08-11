@@ -44,7 +44,13 @@ class MerchantRepository
 
   def find_by_created_at(created_at)
     merchants.find do |merchant|
-      merchant.created_at == created_at
+      merchant.created_at == DateTime.parse(created_at)
+    end
+  end
+
+  def find_by_updated_at(update_at)
+    merchants.find do |merchant|
+      merchant.updated_at == DateTime.parse(updated_at)
     end
   end
 
@@ -60,15 +66,15 @@ class MerchantRepository
     end
   end
 
-  def find_all_by_created_at(time)
+  def find_all_by_created_at(created_at)
     merchants.find_all do |merchant|
-      merchant.created_at == time
+      merchant.created_at == DateTime.parse(created_at)
     end
   end
 
-  def find_all_by_updated_at(time)
+  def find_all_by_updated_at(updated_at)
     merchants.find_all do |merchant|
-      merchant.created_at == time
+      merchant.created_at == DateTime.parse(updated_at)
     end
   end
 
@@ -88,7 +94,7 @@ class MerchantRepository
 
   def revenue(date)
     merchants.inject(0) do |result, merchant|
-      merchant.revenue(date) + result
+      merchant.revenue(DateTime.parse(date)) + result
     end
   end
 end

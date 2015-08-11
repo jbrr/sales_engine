@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'date'
 
 class Item
   attr_reader :id,
@@ -16,8 +17,8 @@ class Item
     @description  = row[:description]
     @unit_price   = BigDecimal.new(row[:unit_price]) / 100
     @merchant_id  = row[:merchant_id].to_i
-    @created_at   = row[:created_at]
-    @updated_at   = row[:updated_at]
+    @created_at   = DateTime.parse(row[:created_at])
+    @updated_at   = DateTime.parse(row[:updated_at])
     @repository   = repository
   end
 
@@ -35,7 +36,7 @@ class Item
       invoice_item.invoice
     end
   end
-  
+
   def successful_transactions
     successful_transactions = []
     invoice_items

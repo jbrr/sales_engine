@@ -62,13 +62,13 @@ class TransactionRepository
 
   def find_by_created_at(created_at)
     transactions.find do |transaction|
-      transaction.created_at == created_at
+      transaction.created_at == DateTime.parse(created_at)
     end
   end
 
   def find_by_updated_at(updated_at)
     transactions.find do |transaction|
-      transaction.updated_at == updated_at
+      transaction.updated_at == DateTime.parse(updated_at)
     end
   end
 
@@ -104,13 +104,13 @@ class TransactionRepository
 
   def find_all_by_created_at(created_at)
     transactions.find_all do |transaction|
-      transaction.created_at == created_at
+      transaction.created_at == DateTime.parse(created_at)
     end
   end
 
   def find_all_by_updated_at(updated_at)
     transactions.find_all do |transaction|
-      transaction.updated_at == updated_at
+      transaction.updated_at == DateTime.parse(updated_at)
     end
   end
 
