@@ -29,4 +29,15 @@ class Item
   def merchant
     repository.find_merchant(merchant_id)
   end
+
+  def invoices
+    invoice_items.map do |invoice_item|
+      invoice_item.invoice
+    end
+  end
+  
+  def successful_transactions
+    successful_transactions = []
+    invoice_items
+  end
 end

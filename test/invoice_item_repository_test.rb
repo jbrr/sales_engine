@@ -20,11 +20,16 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_has_correct_number_of_elements
-    assert_equal invoice_item_repo.invoice_items.size, 18
+    assert_equal invoice_item_repo.invoice_items.size, 20
   end
 
   def test_it_can_return_all_instances_of_invoice_items
     assert_equal invoice_item_repo.invoice_items, invoice_item_repo.invoice_items
+  end
+
+  def test_it_can_find_invoice_item_by_id
+    invoice_item = invoice_item_repo.find_by_id(1)
+    assert_equal invoice_item.item_id, 539
   end
 
   def test_it_can_find_invoice_items_by_item_id
@@ -57,6 +62,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
     assert invoice_item.id, 1
   end
 
+  def test_it_can_find_all_invoice_items_by_id
+    invoice_items = invoice_item_repo.find_all_by_id(1)
+    assert_equal invoice_items.size, 1
+  end
+
   def test_it_can_find_all_invoice_items_by_item_id
     invoice_item = invoice_item_repo.find_all_by_item_id(539)
     assert_equal invoice_item.size, 1
@@ -66,7 +76,6 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item = invoice_item_repo.find_all_by_invoice_id(1)
     assert_equal invoice_item.size, 8
   end
-
 
   def test_it_can_find_all_by_created_at
     invoice_item = invoice_item_repo.find_all_by_created_at('2012-03-27 14:54:09 UTC')
@@ -82,8 +91,4 @@ class InvoiceItemRepositoryTest < Minitest::Test
     invoice_item = invoice_item_repo.find_all_by_quantity(5)
     assert_equal invoice_item.size, 2
   end
-
-
-
-
 end

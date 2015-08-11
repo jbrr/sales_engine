@@ -19,6 +19,10 @@ class InvoiceItemRepository
     end
   end
 
+  def inspect
+    "#<#{self.class} #{invoice_items.size} rows"
+  end
+
   def all
     invoice_items
   end
@@ -27,6 +31,11 @@ class InvoiceItemRepository
     invoice_items.sample
   end
 
+  def find_by_id(id)
+    invoice_items.find do |item|
+      item.id == id
+    end
+  end
 
   def find_by_item_id(item_id)
     invoice_items.find do |item|
@@ -61,6 +70,12 @@ class InvoiceItemRepository
   def find_by_quantity(quantity)
     invoice_items.find do |number|
       number.quantity == quantity
+    end
+  end
+
+  def find_all_by_id(id)
+    invoice_items.find_all do |invoice_item|
+      invoice_item.id == id
     end
   end
 

@@ -24,8 +24,6 @@ class ItemTest < Minitest::Test
       repository)
   end
 
-
-
   def test_item_has_attributes
     assert_equal item.id, 127
   end
@@ -38,8 +36,10 @@ class ItemTest < Minitest::Test
   def test_it_can_find_merchant_by_item
     result = item.merchant
     assert_equal result.name, "Osinski, Pollich and Koelpin"
-
   end
-
-
+  
+  def test_it_can_find_invoices_by_item
+    result = item.invoices
+    assert_equal result.size, 2
+  end
 end
