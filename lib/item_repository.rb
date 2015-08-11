@@ -116,11 +116,15 @@ class ItemRepository
 
   def find_invoice_items(id)
     sales_engine.find_invoice_items_by_item(id)
-
   end
 
   def find_merchant(merchant_id)
     sales_engine.find_merchant_by_item(merchant_id)
+  end
 
+  def most_revenue(num)
+    items.max_by(num) do |item|
+      item.revenue
+    end
   end
 end

@@ -38,7 +38,30 @@ class Item
   end
 
   def successful_transactions
-    successful_transactions = []
-    invoice_items
+    invoices.map do |invoice|
+      invoice.transactions.find_all do |transaction|
+        transaction.result == "success"
+      end
+    end.flatten
+  end
+
+  def successful_invoices
+    successful_transactions.map do |transaction|
+      transaction.invoice
+    end
+  end
+
+  def successful_invoice_items
+    successful_invoices.map do |invoice|
+      invoice.invoice_items.find_all do |invoice_item|
+        invoice_item.item_id == id
+      end
+    end.flatten
+  end
+
+  def revenue
+    successful_invoice_items.inject(0) do |result, invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price) + result
+    end
   end
 end

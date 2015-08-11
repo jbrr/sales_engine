@@ -5,7 +5,7 @@ require_relative '../lib/sales_engine'
 
 class ItemTest < Minitest::Test
 
-  attr_reader :repository, :item
+  attr_reader :repository, :item, :other_item
 
   def setup
     sales_engine = SalesEngine.new("./test/fixtures")
@@ -20,6 +20,17 @@ class ItemTest < Minitest::Test
       :unit_price => 41702,
       :created_at => "2012-03-27 14:53:59 UTC",
       :updated_at => "2012-03-27 14:53:59 UTC"
+      },
+      repository)
+
+    @other_item = Item.new({
+      :id => 1830,
+      :name => "Item Ut Ab",
+      :description => "Quaerat autem illum quam dignissimos. Incidunt dolorum illum quas molestias maxime commodi. Provident sed unde praesentium itaque. Voluptatum exercitationem omnis deserunt error sed. Blanditiis accusamus in molestiae ipsam saepe quasi.",
+      :unit_price => 1859,
+      :merchant_id => 75,
+      :created_at => "2012-03-27 14:54:07 UTC",
+      :updated_at => "2012-03-27 14:54:07 UTC"
       },
       repository)
   end
@@ -37,9 +48,34 @@ class ItemTest < Minitest::Test
     result = item.merchant
     assert_equal result.name, "Osinski, Pollich and Koelpin"
   end
-  
+
   def test_it_can_find_invoices_by_item
     result = item.invoices
     assert_equal result.size, 2
+  end
+
+  def test_it_can_find_successful_transactions
+    result = item.successful_transactions
+    other_result = other_item.successful_transactions
+    assert_equal result.size, 0
+    assert_equal other_result.size, 1
+    assert_equal other_result[0].result, "success"
+  end
+
+  def test_it_can_find_successful_invoices
+    result = item.successful_invoices
+    other_result = other_item.successful_invoices
+    assert_equal result.size, 0
+    assert_equal other_result.size, 1
+  end
+
+  def test_it_can_find_successful_invoice_items
+    result = other_item.successful_invoice_items
+    assert_equal result.size, 1
+  end
+
+  def test_it_can_find_revenue_of_an_item
+    result = other_item.revenue
+    assert_equal result, 74.36
   end
 end

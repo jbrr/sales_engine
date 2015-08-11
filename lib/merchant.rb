@@ -24,19 +24,15 @@ class Merchant
   end
 
   def successful_transactions
-    successful_transactions = []
-    invoices.each do |invoice|
-      invoice.transactions.each do |transaction|
-        if transaction.result == "success"
-          successful_transactions << transaction
-        end
+    invoices.map do |invoice|
+      invoice.transactions.find_all do |transaction|
+        transaction.result == "success"
       end
-    end
-    successful_transactions
+    end.flatten
   end
 
   def successful_invoices
-    successful_invoices = successful_transactions.map do |transaction|
+    successful_transactions.map do |transaction|
       transaction.invoice
     end
   end
@@ -49,7 +45,7 @@ class Merchant
 
   def successful_invoice_items_by_date(date)
     successful_invoice_items.find_all do |invoice_item|
-      invoice_item.created_at == date
+      invoice_item.invoice.created_at == date
     end
   end
 
