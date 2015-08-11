@@ -113,7 +113,9 @@ class InvoiceRepository
   end
 
   def find_items(id)
-    sales_engine.find_items_by_invoice(id)
+    find_invoice_items(id).map do |invoice_item|
+      sales_engine.find_item_by_invoice_item(invoice_item.item_id)
+    end
   end
 
   def find_customer(customer_id)

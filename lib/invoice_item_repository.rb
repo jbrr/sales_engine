@@ -109,14 +109,6 @@ class InvoiceItemRepository
     end
   end
 
-  def find_all_items_by_invoice_id(invoice_id)
-    invoice_items.find_all do |item|
-      if item.invoice_id == invoice_id
-        item.item_id
-      end
-    end
-  end
-
   def find_invoice(invoice_id)
     sales_engine.find_invoice_by_invoice_item(invoice_id)
   end

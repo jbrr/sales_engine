@@ -48,12 +48,12 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_created_at
-    invoice_item = invoice_item_repo.find_by_created_at('2012-03-27 14:54:09 UTC')
+    invoice_item = invoice_item_repo.find_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
     assert invoice_item.id, 1
   end
 
   def test_it_can_find_by_updated_at
-    invoice_item = invoice_item_repo.find_by_updated_at('2012-03-27 14:54:09 UTC')
+    invoice_item = invoice_item_repo.find_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
     assert invoice_item.id, 1
   end
 
@@ -78,13 +78,13 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_created_at
-    invoice_item = invoice_item_repo.find_all_by_created_at('2012-03-27 14:54:09 UTC')
-    assert_equal invoice_item.size, 12
+    invoice_item = invoice_item_repo.find_all_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal invoice_item.size, 20
   end
 
   def test_it_can_find_all_by_updated_at
-    invoice_item = invoice_item_repo.find_all_by_updated_at('2012-03-27 14:54:09 UTC')
-    assert_equal invoice_item.size, 12
+    invoice_item = invoice_item_repo.find_all_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal invoice_item.size, 20
   end
 
   def test_it_can_find_all_by_quantity

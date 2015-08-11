@@ -1,3 +1,5 @@
+require 'date'
+
 class Merchant
   attr_reader :id,
               :name,
@@ -8,8 +10,8 @@ class Merchant
   def initialize(row, repository)
     @id         = row[:id].to_i
     @name       = row[:name]
-    @created_at = row[:created_at]
-    @updated_at = row[:updated_at]
+    @created_at = Date.parse(row[:created_at])
+    @updated_at = Date.parse(row[:updated_at])
     @repository = repository
   end
 
@@ -40,16 +42,14 @@ class Merchant
   end
 
   def successful_invoice_items
-    result = []
-    successful_invoices.each do |invoice|
-      result = invoice.invoice_items
-    end
-    result
+    successful_invoices.map do |invoice|
+      invoice.invoice_items
+    end.flatten
   end
 
   def successful_invoice_items_by_date(date)
     successful_invoice_items.find_all do |invoice_item|
-      invoice_item.created_at[0..9] == date[0..9]
+      invoice_item.created_at == date
     end
   end
 
@@ -60,7 +60,7 @@ class Merchant
       relevant_invoice_items = successful_invoice_items
     end
     relevant_invoice_items.inject(0) do |result, invoice_item|
-      invoice_item.quantity * invoice_item.unit_price + result
+      (invoice_item.quantity * invoice_item.unit_price) + result
     end
   end
 end

@@ -63,10 +63,6 @@ class SalesEngine
     invoice_item_repository.find_all_by_invoice_id(id)
   end
 
-  def find_items_by_invoice(id)
-    invoice_item_repository.find_all_items_by_invoice_id(id)
-  end
-
   def find_customer_by_invoice(customer_id)
     customer_repository.find_by_id(customer_id)
   end

@@ -48,6 +48,12 @@ class MerchantRepository
     end
   end
 
+  def find_by_updated_at(updated_at)
+    merchants.find do |merchant|
+      merchant.updated_at == updated_at
+    end
+  end
+
   def find_all_by_name(name)
     merchants.find_all do |merchant|
       merchant.name.downcase == name.downcase
@@ -68,7 +74,7 @@ class MerchantRepository
 
   def find_all_by_updated_at(time)
     merchants.find_all do |merchant|
-      merchant.created_at == time
+      merchant.updated_at == time
     end
   end
 
