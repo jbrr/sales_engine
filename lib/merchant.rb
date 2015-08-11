@@ -23,6 +23,14 @@ class Merchant
     repository.find_invoices(id)
   end
 
+  def good_date(date)
+    if date.class == DateTime || date.class == Date
+      date.strftime("%Y-%m-%d")
+    else
+      Date.parse(date).strftime("%Y-%m-%d")
+    end
+  end
+
   def successful_transactions
     successful_transactions = invoices.map do |invoice|
       invoice.transactions.find_all do |transaction|
@@ -45,14 +53,14 @@ class Merchant
 
   def successful_invoice_items_by_date(date)
     successful_invoice_items.find_all do |invoice_item|
-      invoice_item.created_at == DateTime.parse(date)
+      good_date(invoice_item.updated_at) == good_date(date)
     end
   end
 
   def revenue(date = nil)
     if date
-      date = DateTime.parse(date)
-      relevant_invoice_items = successful_invoice_items_by_date(date  )
+      date = good_date(date)
+      relevant_invoice_items = successful_invoice_items_by_date(date)
     else
       relevant_invoice_items = successful_invoice_items
     end

@@ -26,8 +26,8 @@ class MerchantTest < Minitest::Test
   def test_a_merchant_has_attributes
     assert_equal merchant.id, 8
     assert_equal merchant.name, "Osinski, Pollich and Koelpin"
-    assert_equal merchant.created_at, "2012-03-27 14:53:59 UTC"
-    assert_equal merchant.updated_at, "2012-03-27 14:53:59 UTC"
+    assert_equal merchant.created_at, DateTime.parse("2012-03-27 14:53:59 UTC")
+    assert_equal merchant.updated_at, DateTime.parse("2012-03-27 14:53:59 UTC")
   end
 
   def test_it_can_find_all_items_by_merchant
@@ -57,9 +57,9 @@ class MerchantTest < Minitest::Test
   end
 
   def test_it_can_find_successful_invoice_items_by_date
-    result = merchant.successful_invoice_items_by_date("2012-03-27 14:53:59 UTC")
-    other_result = merchant.successful_invoice_items_by_date("2015-08-10 14:55:00 UTC")
-    assert_equal result.size, 1
+    result = merchant.successful_invoice_items_by_date("2012-03-27")
+    other_result = merchant.successful_invoice_items_by_date("2015-08-10")
+    assert_equal result.size, 2
     assert_equal other_result.size, 0
   end
 

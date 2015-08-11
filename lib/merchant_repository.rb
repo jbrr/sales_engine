@@ -30,6 +30,14 @@ class MerchantRepository
     merchants.sample
   end
 
+  def good_date(date)
+    if date.class == DateTime || date.class == Date
+      date.strftime("%Y-%m-%d")
+    else
+      Date.parse(date).strftime("%Y-%m-%d")
+    end
+  end
+
   def find_by_id(id)
     merchants.find do |merchant|
       merchant.id == id
@@ -78,6 +86,7 @@ class MerchantRepository
     end
   end
 
+
   def find_items(id)
     sales_engine.find_items_by_merchant(id)
   end
@@ -94,7 +103,7 @@ class MerchantRepository
 
   def revenue(date)
     merchants.inject(0) do |result, merchant|
-      merchant.revenue(DateTime.parse(date)) + result
+      merchant.revenue(good_date(date)) + result
     end
   end
 end
