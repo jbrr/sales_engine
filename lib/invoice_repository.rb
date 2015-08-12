@@ -142,4 +142,8 @@ class InvoiceRepository
     invoices << new_invoice
     new_invoice
   end
+
+  def create_transaction(input, invoice_id)
+    sales_engine.create_transaction(input, invoice_id)
+  end
 end

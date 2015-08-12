@@ -106,4 +106,8 @@ class SalesEngine
   def create_invoice_items(data, invoice_id)
     invoice_item_repository.create(data, invoice_id)
   end
+
+  def create_transaction(input, invoice_id)
+    transaction_repository.create(input, invoice_id)
+  end
 end

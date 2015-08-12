@@ -116,6 +116,20 @@ class TransactionRepository
 
   def find_invoice(invoice_id)
     sales_engine.find_invoice_by_transaction(invoice_id)
+  end
 
+  def create(input, invoice_id)
+    data = {
+            id: transactions.last.id + 1,
+            invoice_id: invoice_id,
+            credit_card_number: input[:credit_card_number],
+            credit_card_expiration_date: input[:credit_card_expiration_date],
+            result: input[:result],
+            created_at: Date.today.strftime("%F"),
+            updated_at: Date.today.strftime("%F")
+          }
+    new_transaction = Transaction.new(data, self)
+    transactions << new_transaction
+    new_transaction
   end
 end

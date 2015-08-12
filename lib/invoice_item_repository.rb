@@ -136,6 +136,7 @@ class InvoiceItemRepository
               }
         new_invoice_item = InvoiceItem.new(data, self)
         invoice_items << new_invoice_item
+        new_invoice_item
     end
   end
 end

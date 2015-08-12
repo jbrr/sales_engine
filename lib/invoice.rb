@@ -33,4 +33,8 @@ class Invoice
   def merchant
     repository.find_merchant(merchant_id)
   end
+
+  def charge(input)
+    repository.create_transaction(input, id)
+  end
 end
