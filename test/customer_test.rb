@@ -4,7 +4,7 @@ require_relative '../lib/customer'
 require_relative '../lib/sales_engine'
 
 class CustomerTest < Minitest::Test
-  attr_reader :customer, :repository
+  attr_reader :customer, :other_customer, :repository
   def setup
     sales_engine = SalesEngine.new('./test/fixtures')
     sales_engine.startup
@@ -17,6 +17,15 @@ class CustomerTest < Minitest::Test
       :updated_at => "2012-03-27 14:54:09 UTC"
       },
       repository)
+
+      @other_customer = Customer.new({
+        :id => 3,
+        :first_name => "Mariah",
+        :last_name => "Toy",
+        :created_at => "2012-03-27 14:54:10 UTC",
+        :updated_at => "2012-03-27 14:54:10 UTC"
+        },
+        repository)
   end
 
   def test_a_customer_has_attributes
@@ -62,5 +71,20 @@ class CustomerTest < Minitest::Test
   def test_it_can_find_a_favorite_merchant_id
     result = customer.favorite_merchant_id
     assert_equal result, 26
+  end
+
+  def test_it_can_find_failed_transactions
+    result = other_customer.failed_transactions
+    assert_equal result[0].result, "failed"
+  end
+
+  def test_it_can_find_pending_transactions
+    result = other_customer.pending_transactions
+    assert_equal result.size, 1
+    assert_equal result[0].id, 11
+  end
+
+  def test_it_can_find_pending_invoices
+    assert_equal other_customer.pending_invoices[0].id, 12
   end
 end

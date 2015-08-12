@@ -102,7 +102,7 @@ class MerchantTest < Minitest::Test
     assert_equal result.id, 3
   end
 
-  def test_it_can_find_fail_transactions
+  def test_it_can_find_failed_transactions
     result = merchant.failed_transactions
     assert_equal result[0].result, "failed"
   end
