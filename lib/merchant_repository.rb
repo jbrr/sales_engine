@@ -48,6 +48,12 @@ class MerchantRepository
     end
   end
 
+  def find_by_updated_at(updated_at)
+    merchants.find do |merchant|
+      merchant.updated_at == updated_at
+    end
+  end
+
   def find_all_by_name(name)
     merchants.find_all do |merchant|
       merchant.name.downcase == name.downcase
@@ -68,7 +74,7 @@ class MerchantRepository
 
   def find_all_by_updated_at(time)
     merchants.find_all do |merchant|
-      merchant.created_at == time
+      merchant.updated_at == time
     end
   end
 
@@ -80,6 +86,10 @@ class MerchantRepository
     sales_engine.find_invoices_by_merchant(id)
   end
 
+  def find_customer_by_customer_id(customer_id)
+    sales_engine.find_customer_by_customer_id(customer_id)
+  end
+
   def most_revenue(num)
     merchants.max_by(num) do |merchant|
       merchant.revenue
@@ -89,6 +99,12 @@ class MerchantRepository
   def revenue(date)
     merchants.inject(0) do |result, merchant|
       merchant.revenue(date) + result
+    end
+  end
+
+  def most_items(num)
+    merchants.max_by(num) do |merchant|
+      merchant.total_items_sold
     end
   end
 end

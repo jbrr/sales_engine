@@ -31,8 +31,8 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice.customer_id, 1
     assert_equal invoice.merchant_id, 26
     assert_equal invoice.status, "shipped"
-    assert_equal invoice.created_at, "2012-03-25 09:54:09 UTC"
-    assert_equal invoice.updated_at, "2012-03-25 09:54:09 UTC"
+    assert_equal invoice.created_at, Date.parse("2012-03-25 09:54:09 UTC")
+    assert_equal invoice.updated_at, Date.parse("2012-03-25 09:54:09 UTC")
   end
 
   def test_it_can_find_all_transactions_by_invoice
@@ -58,5 +58,12 @@ class InvoiceTest < Minitest::Test
   def test_it_can_find_a_merchant_by_invoice
     result = invoice.merchant
     assert_equal result.name, "Balistreri, Schaefer and Kshlerin"
+  end
+
+  def test_it_can_create_a_transaction
+    new_transaction = invoice.charge(credit_card_number: "4444333322221111",
+               credit_card_expiration: "10/13", result: "success")
+    assert_equal new_transaction.class, Transaction
+    assert "we're done!"
   end
 end

@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'date'
 
 class Item
   attr_reader :id,
@@ -16,8 +17,8 @@ class Item
     @description  = row[:description]
     @unit_price   = BigDecimal.new(row[:unit_price]) / 100
     @merchant_id  = row[:merchant_id].to_i
-    @created_at   = row[:created_at]
-    @updated_at   = row[:updated_at]
+    @created_at   = Date.parse(row[:created_at])
+    @updated_at   = Date.parse(row[:updated_at])
     @repository   = repository
   end
 
@@ -35,9 +36,56 @@ class Item
       invoice_item.invoice
     end
   end
-  
+
+  def invoice_dates
+    invoices.map do |invoice|
+      invoice.created_at
+    end
+  end
+
+  def invoice_date_frequency_hash
+    invoice_dates.inject(Hash.new(0)) do |hash, date|
+      hash[date] += 1; hash
+    end
+  end
+
+  def best_day
+    invoice_date_frequency_hash.max_by do |merchant, frequency|
+      frequency
+    end[0]
+  end
+
   def successful_transactions
-    successful_transactions = []
-    invoice_items
+    invoices.map do |invoice|
+      invoice.transactions.find_all do |transaction|
+        transaction.result == "success"
+      end
+    end.flatten
+  end
+
+  def successful_invoices
+    successful_transactions.map do |transaction|
+      transaction.invoice
+    end.uniq
+  end
+
+  def successful_invoice_items
+    successful_invoices.map do |invoice|
+      invoice.invoice_items.find_all do |invoice_item|
+        invoice_item.item_id == id
+      end
+    end.flatten
+  end
+
+  def revenue
+    invoice_items.inject(0) do |result, invoice_item|
+      (invoice_item.quantity * invoice_item.unit_price) + result
+    end
+  end
+
+  def total_items_sold
+    successful_invoice_items.inject(0) do |result, invoice_item|
+      result + invoice_item.quantity
+    end
   end
 end

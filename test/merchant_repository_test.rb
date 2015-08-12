@@ -46,7 +46,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_can_find_by_created_at
-    merchant = merchant_repo.find_by_created_at("2012-03-27 14:53:59 UTC")
+    merchant = merchant_repo.find_by_created_at(Date.parse("2012-03-27 14:53:59 UTC"))
     assert_equal merchant.id, 8
   end
 
@@ -61,8 +61,13 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_merchant_can_find_all_by_created_at
-    merchant_array = merchant_repo.find_all_by_created_at("2012-03-27 14:53:59 UTC")
-    assert_equal merchant_array.size, 1
+    merchant_array = merchant_repo.find_all_by_created_at(Date.parse("2012-03-27 14:53:59 UTC"))
+    assert_equal merchant_array.size, 3
+  end
+
+  def test_it_can_find_all_merchants_by_updated_at
+    merchant_array = merchant_repo.find_all_by_updated_at(Date.parse("2012-03-27"))
+    assert_equal merchant_array.size, 3
   end
 
   def test_it_can_rank_merchants_by_revenue
@@ -72,9 +77,9 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_total_revenue_by_date
-    result = merchant_repo.revenue("2012-03-27")
-    other_result = merchant_repo.revenue("2015-08-10")
-    assert_equal result, 29996.66
+    result = merchant_repo.revenue(Date.parse("2012-03-27"))
+    other_result = merchant_repo.revenue(Date.parse("2015-08-10"))
+    assert_equal result, 3639.76
     assert_equal other_result, 0
   end
 end

@@ -66,22 +66,12 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_a_customer_by_created_at_date
-    customer = customer_repo.find_by_created_at("2012-03-27 14:54:09 UTC")
+    customer = customer_repo.find_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
     assert_equal customer.id, 1
   end
 
-  def test_it_can_find_a_different_customer_by_created_at_date
-    customer = customer_repo.find_by_created_at("2012-03-27 14:54:10 UTC")
-    assert_equal customer.id, 3
-  end
-
   def test_it_can_find_a_customer_by_updated_at_date
-    customer = customer_repo.find_by_updated_at("2012-03-27 14:54:10 UTC")
-    assert_equal customer.id, 3
-  end
-
-  def test_it_can_find_a_different_customer_by_updated_at_date
-    customer = customer_repo.find_by_updated_at("2012-03-27 14:54:09 UTC")
+    customer = customer_repo.find_by_updated_at(Date.parse("2012-03-27 14:54:10 UTC"))
     assert_equal customer.id, 1
   end
 
@@ -101,13 +91,13 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_created_at_date
-    customer_array = customer_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    assert_equal customer_array.size, 1
+    customer_array = customer_repo.find_all_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal customer_array.size, 2
   end
 
   def test_it_can_find_all_by_updated_at_date
-    customer_array = customer_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal customer_array.size, 1
+    customer_array = customer_repo.find_all_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal customer_array.size, 2
   end
 
   def test_it_will_return_an_empty_array_if_no_matches

@@ -1,12 +1,15 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/item_repository'
+require_relative '../lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
   attr_reader :item_repo
 
   def setup
-    @item_repo = ItemRepository.new("./test/fixtures/items.csv", self)
+    sales_engine = SalesEngine.new("./test/fixtures")
+    sales_engine.startup
+    @item_repo = sales_engine.item_repository
   end
 
   def test_it_stores_file_path
@@ -61,12 +64,12 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_an_item_by_created_at_date
-    item = item_repo.find_by_created_at("2012-03-27 14:53:59 UTC")
+    item = item_repo.find_by_created_at(Date.parse("2012-03-27 14:53:59 UTC"))
     assert_equal item.id, 127
   end
 
   def test_it_can_find_an_item_by_updated_at_date
-    item = item_repo.find_by_updated_at("2012-03-27 14:53:59 UTC")
+    item = item_repo.find_by_updated_at(Date.parse("2012-03-27 14:53:59 UTC"))
     assert_equal item.id, 127
   end
 
@@ -96,17 +99,29 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_by_created_at_date
-    items = item_repo.find_all_by_created_at("2012-03-27 14:53:59 UTC")
-    assert_equal items.size, 5
+    items = item_repo.find_all_by_created_at(Date.parse("2012-03-27 14:53:59 UTC"))
+    assert_equal items.size, 17
   end
 
   def test_it_can_find_all_items_by_updated_at_date
-    items = item_repo.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
-    assert_equal items.size, 5
+    items = item_repo.find_all_by_updated_at(Date.parse("2012-03-27 14:53:59 UTC"))
+    assert_equal items.size, 17
   end
 
   def test_it_will_return_an_empty_array_if_no_matches
     items = item_repo.find_all_by_id(574934)
     assert_equal items.size, 0
+  end
+
+  def test_it_can_return_most_revenue
+    items = item_repo.most_revenue(5)
+    assert_equal items.size, 5
+    assert_equal items[0].id, 529
+  end
+
+  def test_it_return_most_items_sold
+    items = item_repo.most_items(5)
+    assert_equal items.size, 5
+    assert_equal items[0].id, 528
   end
 end

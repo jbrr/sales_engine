@@ -1,3 +1,4 @@
+require 'date'
 require_relative 'invoice'
 require_relative 'invoice_loader'
 
@@ -113,7 +114,9 @@ class InvoiceRepository
   end
 
   def find_items(id)
-    sales_engine.find_items_by_invoice(id)
+    find_invoice_items(id).map do |invoice_item|
+      sales_engine.find_item_by_invoice_item(invoice_item.item_id)
+    end
   end
 
   def find_customer(customer_id)
@@ -122,5 +125,25 @@ class InvoiceRepository
 
   def find_merchant(merchant_id)
     sales_engine.find_merchant_by_invoice(merchant_id)
+  end
+
+  def create(input)
+    data = {
+          id: invoices.last.id + 1,
+          customer_id: input[:customer].id,
+          merchant_id: input[:merchant].id,
+          status: input[:status],
+          created_at: Date.today.strftime("%F"),
+          updated_at: Date.today.strftime("%F")
+          }
+
+    sales_engine.create_invoice_items(input[:items], data[:id])
+    new_invoice = Invoice.new(data, self)
+    invoices << new_invoice
+    new_invoice
+  end
+
+  def create_transaction(input, invoice_id)
+    sales_engine.create_transaction(input, invoice_id)
   end
 end

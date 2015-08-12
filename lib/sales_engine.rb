@@ -63,10 +63,6 @@ class SalesEngine
     invoice_item_repository.find_all_by_invoice_id(id)
   end
 
-  def find_items_by_invoice(id)
-    invoice_item_repository.find_all_items_by_invoice_id(id)
-  end
-
   def find_customer_by_invoice(customer_id)
     customer_repository.find_by_id(customer_id)
   end
@@ -97,5 +93,21 @@ class SalesEngine
 
   def find_invoices_by_customer(id)
     invoice_repository.find_all_by_customer_id(id)
+  end
+
+  def find_merchant_by_merchant_id(merchant_id)
+    merchant_repository.find_by_id(merchant_id)
+  end
+
+  def find_customer_by_customer_id(customer_id)
+    customer_repository.find_by_id(customer_id)
+  end
+
+  def create_invoice_items(data, invoice_id)
+    invoice_item_repository.create(data, invoice_id)
+  end
+
+  def create_transaction(input, invoice_id)
+    transaction_repository.create(input, invoice_id)
   end
 end
