@@ -51,12 +51,12 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_a_transaction_by_created_at_date
-    transaction = transaction_repo.find_by_created_at("2012-03-27 14:54:09 UTC")
+    transaction = transaction_repo.find_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
     assert_equal transaction.id, 1
   end
 
   def test_it_can_find_a_transaction_by_updated_at_date
-    transaction = transaction_repo.find_by_updated_at("2012-03-27 14:54:09 UTC")
+    transaction = transaction_repo.find_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
     assert_equal transaction.id, 1
   end
 
@@ -86,13 +86,13 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_all_transactions_by_created_at_date
-    transactions = transaction_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    assert_equal transactions.size, 2
+    transactions = transaction_repo.find_all_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal transactions.size, 4
   end
 
   def test_it_can_find_all_transactions_by_updated_at_date
-    transactions = transaction_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal transactions.size, 2
+    transactions = transaction_repo.find_all_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    assert_equal transactions.size, 4
   end
 
   def test_it_will_return_an_empty_array_if_no_matches

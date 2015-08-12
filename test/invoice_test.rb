@@ -31,8 +31,8 @@ class InvoiceTest < Minitest::Test
     assert_equal invoice.customer_id, 1
     assert_equal invoice.merchant_id, 26
     assert_equal invoice.status, "shipped"
-    assert_equal invoice.created_at, DateTime.parse("2012-03-25 09:54:09 UTC")
-    assert_equal invoice.updated_at, DateTime.parse("2012-03-25 09:54:09 UTC")
+    assert_equal invoice.created_at, Date.parse("2012-03-25 09:54:09 UTC")
+    assert_equal invoice.updated_at, Date.parse("2012-03-25 09:54:09 UTC")
   end
 
   def test_it_can_find_all_transactions_by_invoice

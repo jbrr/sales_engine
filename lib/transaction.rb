@@ -16,8 +16,8 @@ attr_reader :id,
     @credit_card_number          = row[:credit_card_number]
     @credit_card_expiration_date = row[:credit_card_expiration_date]
     @result                      = row[:result]
-    @created_at                  = DateTime.parse(row[:created_at])
-    @updated_at                  = DateTime.parse(row[:updated_at])
+    @created_at                  = Date.parse(row[:created_at])
+    @updated_at                  = Date.parse(row[:updated_at])
     @repository                  = repository
   end
 

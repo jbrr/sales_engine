@@ -31,12 +31,12 @@ def test_it_can_find_an_invoice_by_status
 end
 
 def test_it_can_find_an_invoice_by_created_at_date
-	invoice = invoice_repo.find_by_created_at("2012-03-25 09:54:09 UTC")
+	invoice = invoice_repo.find_by_created_at(Date.parse("2012-03-25 09:54:09 UTC"))
 	assert_equal invoice.id, 1
 end
 
 def test_it_can_find_an_invoice_by_updated_at_date
-	invoice = invoice_repo.find_by_updated_at("2012-03-25 09:54:09 UTC")
+	invoice = invoice_repo.find_by_updated_at(Date.parse("2012-03-25 09:54:09 UTC"))
 	assert_equal invoice.id, 1
 end
 
@@ -61,12 +61,12 @@ def test_it_can_find_all_by_status
 end
 
 def test_it_can_find_all_by_created_at_date
-	invoice = invoice_repo.find_all_by_created_at("2012-03-25 09:54:09 UTC")
+	invoice = invoice_repo.find_all_by_created_at(Date.parse("2012-03-25 09:54:09 UTC"))
 	assert_equal invoice.size, 1
 end
 
 def test_it_can_find_all_by_updated_at_date
-	invoice = invoice_repo.find_all_by_updated_at("2012-03-25 09:54:09 UTC")
+	invoice = invoice_repo.find_all_by_updated_at(Date.parse("2012-03-25 09:54:09 UTC"))
 	assert_equal invoice.size, 1
 end
 
