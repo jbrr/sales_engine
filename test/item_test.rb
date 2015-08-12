@@ -85,4 +85,10 @@ class ItemTest < Minitest::Test
     assert_equal result, 0
     assert_equal other_result, 4
   end
+
+  def test_it_can_find_invoice_dates
+    result = item.invoice_dates
+    assert_equal result.size, 2
+    assert_equal result[0], Date.parse("2012-03-21")
+  end
 end

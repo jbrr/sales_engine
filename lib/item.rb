@@ -37,6 +37,24 @@ class Item
     end
   end
 
+  def invoice_dates
+    invoices.map do |invoice|
+      invoice.created_at
+    end
+  end
+
+  def invoice_date_frequency_hash
+    invoice_dates.inject(Hash.new(0)) do |hash, date|
+      hash[date] += 1; hash
+    end
+  end
+
+  def best_day
+    invoice_date_frequency_hash.max_by do |merchant, frequency|
+      frequency
+    end[0]
+  end
+
   def successful_transactions
     invoices.map do |invoice|
       invoice.transactions.find_all do |transaction|
@@ -48,7 +66,7 @@ class Item
   def successful_invoices
     successful_transactions.map do |transaction|
       transaction.invoice
-    end
+    end.uniq
   end
 
   def successful_invoice_items
