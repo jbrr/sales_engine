@@ -59,4 +59,11 @@ class InvoiceTest < Minitest::Test
     result = invoice.merchant
     assert_equal result.name, "Balistreri, Schaefer and Kshlerin"
   end
+
+  def test_it_can_create_a_transaction
+    new_transaction = invoice.charge(credit_card_number: "4444333322221111",
+               credit_card_expiration: "10/13", result: "success")
+    assert_equal new_transaction.class, Transaction
+    assert "we're done!"
+  end
 end

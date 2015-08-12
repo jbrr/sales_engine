@@ -95,19 +95,4 @@ class TransactionRepositoryTest < Minitest::Test
     transactions = transaction_repo.find_all_by_id(385974)
     assert_equal transactions.size, 0
   end
-
-  def create(input, invoice_id)
-    data = {
-            id: transactions.last.id + 1,
-            invoice_id: invoice_id,
-            credit_card_number: input[:credit_card_number],
-            credit_card_expiration_date: input[:credit_card_expiration_date],
-            result: input[:result],
-            created_at: Date.today.strftime("%F"),
-            updated_at: Date.today.strftime("%F")
-          }
-    new_transaction = Transaction.new(data, self)
-    transactions << new_transaction
-    new_transaction
-  end
 end
