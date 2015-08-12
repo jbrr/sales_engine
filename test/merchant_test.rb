@@ -79,4 +79,45 @@ class MerchantTest < Minitest::Test
     assert_equal result, 3639.76
     assert_equal other_result, 0
   end
+
+  def test_it_can_find_succesful_customer_ids
+    result = merchant.successful_customer_ids
+    assert_equal result.size, 1
+    assert_equal result[0], 3
+  end
+
+  def test_it_can_make_a_hash_of_customer_ids_and_number_of_invoices
+    result = merchant.customer_frequency_hash
+    assert_equal result.size, 1
+    assert_equal result, {3 => 1}
+  end
+
+  def test_it_can_find_favorite_customer_id
+    result = merchant.favorite_customer_id
+    assert_equal result, 3
+  end
+
+  def test_it_can_find_favorite_customer
+    result = merchant.favorite_customer
+    assert_equal result.id, 3
+  end
+
+  def test_it_can_find_fail_transactions
+    result = merchant.failed_transactions
+    assert_equal result[0].result, "failed"
+  end
+
+  def test_it_can_find_pending_transactions
+    result = merchant.pending_transactions
+    assert_equal result.size, 1
+    assert_equal result[0].id, 11
+  end
+
+  def test_it_can_find_pending_invoices
+    assert_equal merchant.pending_invoices[0].id, 12
+  end
+
+  def test_it_can_find_customers_with_pending_invoices
+    assert_equal merchant.customers_with_pending_invoices[0].id, 3
+  end
 end

@@ -91,4 +91,15 @@ class ItemTest < Minitest::Test
     assert_equal result.size, 2
     assert_equal result[0], Date.parse("2012-03-21")
   end
+
+  def test_it_can_return_a_hash_of_invoice_dates_and_frequency
+    result = item.invoice_date_frequency_hash
+    assert_equal result.size, 1
+    assert_equal result, {Date.parse("2012-03-21") => 2}
+  end
+
+  def test_it_can_return_the_day_with_most_sales
+    result = item.best_day
+    assert_equal result, Date.parse("2012-03-21")
+  end
 end
