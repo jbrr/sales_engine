@@ -79,7 +79,7 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_can_find_total_revenue_by_date
     result = merchant_repo.revenue(Date.parse("2012-03-27"))
     other_result = merchant_repo.revenue(Date.parse("2015-08-10"))
-    assert_equal result, 29996.66
+    assert_equal result, 3639.76
     assert_equal other_result, 0
   end
 end

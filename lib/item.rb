@@ -60,8 +60,14 @@ class Item
   end
 
   def revenue
-    successful_invoice_items.inject(0) do |result, invoice_item|
+    invoice_items.inject(0) do |result, invoice_item|
       (invoice_item.quantity * invoice_item.unit_price) + result
+    end
+  end
+
+  def total_items_sold
+    successful_invoice_items.inject(0) do |result, invoice_item|
+      result + invoice_item.quantity
     end
   end
 end

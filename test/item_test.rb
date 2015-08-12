@@ -78,4 +78,11 @@ class ItemTest < Minitest::Test
     result = other_item.revenue
     assert_equal result, 74.36
   end
+
+  def test_it_can_find_the_total_sold_of_an_item
+    result = item.total_items_sold
+    other_result = other_item.total_items_sold
+    assert_equal result, 0
+    assert_equal other_result, 4
+  end
 end

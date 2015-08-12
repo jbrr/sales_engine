@@ -28,4 +28,9 @@ class CustomerTest < Minitest::Test
       result = customer.invoices
       assert_equal result.size, 2
     end
+
+    def test_it_can_find_transactions_by_customer
+      result = customer.transactions
+      assert_equal result.size, 2
+    end
 end
