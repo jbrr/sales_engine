@@ -128,9 +128,9 @@ class ItemRepository
     end
   end
 
-  # def most_items(num)
-  #   items.max_by(num) do |item|
-  #     item.total_items_sold
-  #   end
-  # end
+  def most_items(num)
+    items.max_by(num) do |item|
+      item.total_items_sold
+    end
+  end
 end
