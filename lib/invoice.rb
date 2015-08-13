@@ -37,4 +37,36 @@ class Invoice
   def charge(input)
     repository.create_transaction(input, id)
   end
+
+  def successful_transactions
+    transactions.find_all do |transaction|
+      transaction.result == "success"
+    end
+  end
+
+  def successful_transaction_inv_ids
+    successful_transactions.map do |transaction|
+      transaction.invoice_id
+    end
+  end
+
+  def failed_transactions
+    transactions.find_all do |transaction|
+      transaction.result == "failed"
+    end
+  end
+
+  def pending_transactions
+    failed_transactions.map do |transaction|
+      unless successful_transaction_inv_ids.include?(transaction.invoice_id)
+        transaction
+      end
+    end.flatten.compact
+  end
+
+  def pending_invoices
+    pending_transactions.map do |transaction|
+      transaction.invoice
+    end
+  end
 end

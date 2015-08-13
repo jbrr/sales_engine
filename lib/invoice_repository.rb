@@ -146,4 +146,10 @@ class InvoiceRepository
   def create_transaction(input, invoice_id)
     sales_engine.create_transaction(input, invoice_id)
   end
+
+  def pending
+    invoices.map do |invoice|
+      invoices.pending_invoices
+    end
+  end
 end
